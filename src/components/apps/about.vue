@@ -4,6 +4,7 @@
     <p>
       Lorem ipsumn, Lorem ipsumnLorem ipsumn, Lorem ipsumn ipsumn, Lorem ipsumnipsumn, Lorem ipsumnipsumn, Lorem ipsumnipsumn, Lorem ipsumnipsumn, Lorem ipsumnipsumn, Lorem ipsumn
     </p>
+    <a href="https://www.svgrepo.com/collection/memory-pixel-interface-icons/7">Icons Svgrepo.com</a>
   </AppTemplate>
 </template>
 
