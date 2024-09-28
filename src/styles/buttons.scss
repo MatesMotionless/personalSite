@@ -1,14 +1,9 @@
 @use "global";
 
-.btn {
-  padding: 0.5rem 1rem;
-  border: 2px solid global.$text-color;
-  color: global.$text-color;
-  text-decoration: none;
-  border-radius: 4px;
 
-  &:hover {
-    background-color: global.$text-color;
-    color: global.$screen-background;
-  }
+.icon {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed global.$text-color;
+  border-radius: 3px;
 }

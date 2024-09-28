@@ -1,21 +1,31 @@
 <template>
-  <div class="device-info">
-    Device info: {{window.screen.width}}x{{window.screen.height}} ({{window.navigator.platform}})
-  </div>
-
-  <main>
-    <h1>Choose language</h1>
-    <div>
-      <a href="#" class="btn">CS</a>
-      <a href="#" class="btn">EN</a>
-    </div>
-  </main>
+  <CV/>
+  <Terminal/>
+  <About/>
 </template>
 
 
 <script setup>
-import {inject} from "vue";
-const window = inject('window');
+import {inject, onMounted, ref} from "vue";
+import CV from "./components/apps/CV.vue";
+import Terminal from "./components/apps/terminal.vue";
+import About from "./components/apps/about.vue";
+
+let isLoaded = ref(false);
+
+let openedWindows = [];
+
+
+function openWindow(window){
+
+}
+
+
+onMounted(()=>{
+  isLoaded.value = true;
+})
+
+
 </script>
 
 

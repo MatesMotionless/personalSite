@@ -1,8 +1,15 @@
 import { createApp } from 'vue'
 import './styles/main.scss'
 import App from './App.vue'
+import SystemInfo from "./components/systemInfo.vue";
+import VueDraggableResizable from 'vue-draggable-resizable';
 
 
 const app = createApp(App);
-app.provide('window', window);
+app.component("vue-draggable-resizable", VueDraggableResizable)
 app.mount('#app');
+
+
+const systemInfo = createApp(SystemInfo);
+systemInfo.provide('window', window);
+systemInfo.mount('#systemInfo');
