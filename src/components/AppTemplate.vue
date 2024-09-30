@@ -1,6 +1,9 @@
 <template>
   <a href="#" @click.prevent="isOpen = true" class="icon" :style="{'grid-row': row, 'grid-column': column}">
-    <img :src="`/icons/${icon}.svg`" style="width: 100%; height: 100%;" :alt="title">
+<!--    <img :src="`/icons/${icon}.svg`" style="width: 100%; height: 100%;" :alt="title">-->
+    <svg style="width: 100%; height: 100%;" color="blue">
+      <use :href="`/icons/apps.svg#${icon}`"></use>
+    </svg>
   </a>
   <teleport to="#app" >
     <WindowBase

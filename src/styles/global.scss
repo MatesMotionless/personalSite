@@ -25,6 +25,7 @@ $text-color: rgba(44, 178, 3, 0.87);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  //--var: #smth  (use var(--var))
 }
 
 ::selection {
@@ -41,7 +42,7 @@ html, body {
   //display: flex;
   //justify-content: center;
   //align-items: center;
-  height: -webkit-fill-available;
+  height: calc(100% - 6rem);
 
   padding: 3rem;
   &::after {
