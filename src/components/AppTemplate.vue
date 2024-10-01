@@ -1,7 +1,6 @@
 <template>
   <a href="#" @click.prevent="isOpen = true" class="icon" :style="{'grid-row': row, 'grid-column': column}">
-<!--    <img :src="`/icons/${icon}.svg`" style="width: 100%; height: 100%;" :alt="title">-->
-    <svg style="width: 100%; height: 100%;" color="blue">
+    <svg>
       <use :href="`/icons/apps.svg#${icon}`"></use>
     </svg>
   </a>
@@ -9,16 +8,14 @@
     <WindowBase
         :title="title"
         @action:close="isOpen = false"
+        @action:fullscreen="toggleFullscreen"
         v-if="isOpen"
-        @last-position="saveLastPosition"
-        @last-size="saveLastSize"
-        :x="lastPosition.x"
-        :y="lastPosition.y"
-        :w="lastPosition.width"
-        :h="lastPosition.height"
+        @last-position="updateCoordinates"
+        @last-size="updateCoordinates"
+        v-bind="attrs"
     >
       <slot>
-
+        <!--Content here-->
       </slot>
     </WindowBase>
   </teleport>
@@ -26,29 +23,76 @@
 
 
 <script setup>
-import {reactive, ref} from "vue";
+import {reactive, ref, watch} from "vue";
 import WindowBase from "./WindowBase.vue";
 
 defineProps(['title', 'row', 'column', 'icon']);
+const emit = defineEmits( ['action:open', 'action:close']);
+
 
 let isOpen = ref(false);
-let lastPosition = reactive({
+let isFullScreen = ref(false);
+
+watch(isOpen, ()=>{
+  isOpen.value ? emit('action:open') : emit('action:close');
+
+})
+
+let attrs = reactive({
   x:0,
   y:0,
-  width: 350,
-  height: 230
+  w: 350,
+  h: 230
 });
 
 
-function saveLastPosition(obj){
-  lastPosition.y = obj.y;
-  lastPosition.x = obj.x;
+
+function updateCoordinates(coordinates){
+  if (coordinates.hasOwnProperty('y')){
+    attrs.y = coordinates.y;
+  }
+  if (coordinates.hasOwnProperty('x')){
+    attrs.x = coordinates.x;
+  }
+  if (coordinates.hasOwnProperty('height')){
+    attrs.h = coordinates.height;
+  }
+  if (coordinates.hasOwnProperty('width')){
+    attrs.w = coordinates.width;
+  }
 }
 
-function saveLastSize(obj){
-  lastPosition.height = obj.height;
-  lastPosition.width = obj.width;
-  saveLastPosition(obj);
+
+let savedCoordinates = {};
+async function toggleFullscreen() {
+  isFullScreen.value = !isFullScreen.value;
+  attrs.draggable = !isFullScreen.value;
+  attrs.resizable = !isFullScreen.value;
+  if(isFullScreen.value){
+    const {y,x,w,h} = {...attrs};
+    savedCoordinates = {y:y, x:x, w:w, h:h};
+    attrs.y = 0;
+    attrs.x = 0;
+    attrs.class = "fullscreen";
+    attrs.style = {width: '100vw !important',
+      height: '100vh !important',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      position: 'fixed',
+      zIndex: 3
+    }
+  }else{
+    const {y,x,w,h} = savedCoordinates;
+    delete attrs.style;
+    delete attrs.class;
+    //await nextTick();
+    attrs.y = y;
+    attrs.x = x;
+    attrs.w = w;
+    attrs.h = h;
+  }
 }
 
 </script>
