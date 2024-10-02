@@ -8,7 +8,7 @@
         </ul>
         <div class="input-flex">
           <span>></span>
-          <input type="text" disabled ref="terminalInput" id="terminalInput" :maxlength="maxLength" v-model="userInput" @keydown.prevent.enter="onInput" />
+          <input type="text" ref="terminalInput" id="terminalInput" :maxlength="maxLength" v-model="userInput" @keydown.prevent.enter="onInput" />
         </div>
         <span style="color: red" v-if="maxLength <= userInput.length">You somehow reached the limit of characters!</span>
       </label>
