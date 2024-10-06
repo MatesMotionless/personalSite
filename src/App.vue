@@ -1,4 +1,5 @@
 <template>
+  <ContextMenu/>
   <CV/>
   <Terminal/>
   <About/>
@@ -10,6 +11,7 @@ import {inject, onMounted, ref} from "vue";
 import CV from "./components/apps/CV.vue";
 import Terminal from "./components/apps/terminal.vue";
 import About from "./components/apps/about.vue";
+import ContextMenu from "./components/ContextMenu.vue";
 
 let isLoaded = ref(false);
 

@@ -15,7 +15,10 @@ let time = ref(null);
 
 function setTime(){
   let date = new Date();
-  time.value = `${date.getHours()}:${date.getMinutes()}`;
+  let hours = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+  let minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+  time.value = `${hours}:${minutes}`;
+
   setTimeout(() => setTime(), 60000);
 }
 
