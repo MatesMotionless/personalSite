@@ -13,6 +13,7 @@
         @last-position="updateCoordinates"
         @last-size="updateCoordinates"
         v-bind="attrs"
+        v-bind:style="$attrs.style"
     >
       <slot>
         <!--Content here-->
@@ -27,7 +28,9 @@ import {reactive, ref, watch} from "vue";
 import WindowBase from "./WindowBase.vue";
 
 defineProps(['title', 'row', 'column', 'icon']);
-const emit = defineEmits( ['action:open', 'action:close']);
+const emit = defineEmits( ['action:open', 'action:close', 'window:resize', 'window:move', 'action:fullscreen']);
+
+
 
 
 let isOpen = ref(false);
@@ -56,6 +59,9 @@ function updateCoordinates(coordinates){
   }
   if (coordinates.hasOwnProperty('height')){
     attrs.h = coordinates.height;
+    emit('window:resize');
+  }else{
+    emit('window:move');
   }
   if (coordinates.hasOwnProperty('width')){
     attrs.w = coordinates.width;
@@ -69,6 +75,7 @@ async function toggleFullscreen() {
   attrs.draggable = !isFullScreen.value;
   attrs.resizable = !isFullScreen.value;
   if(isFullScreen.value){
+    emit('action:fullscreen', true );
     const {y,x,w,h} = {...attrs};
     savedCoordinates = {y:y, x:x, w:w, h:h};
     attrs.y = 0;
@@ -84,6 +91,7 @@ async function toggleFullscreen() {
       zIndex: 3
     }
   }else{
+    emit('action:fullscreen', false);
     const {y,x,w,h} = savedCoordinates;
     delete attrs.style;
     delete attrs.class;

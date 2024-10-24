@@ -16,7 +16,7 @@
       <a class="button" @click.prevent="$emit('action:fullscreen')">#</a>
       <a class="button" @click.prevent="$emit('action:close')">X</a>
     </div>
-    <div class="app-content">
+    <div class="app-content" v-bind:style="$attrs.style">
       <slot>
 
       </slot>

@@ -3,6 +3,7 @@
   <CV/>
   <Terminal/>
   <About/>
+  <Browser/>
 </template>
 
 
@@ -12,6 +13,7 @@ import CV from "./components/apps/CV.vue";
 import Terminal from "./components/apps/terminal.vue";
 import About from "./components/apps/about.vue";
 import ContextMenu from "./components/ContextMenu.vue";
+import Browser from "./components/apps/browser.vue";
 
 let isLoaded = ref(false);
 
