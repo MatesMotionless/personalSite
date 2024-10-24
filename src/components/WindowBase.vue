@@ -7,6 +7,7 @@
       :parent="true"
       @drag-stop="(x,y)=> $emit('lastPosition', {x: x, y:y})"
       @resize-stop="(left, top, width, height) => $emit('lastSize',{x: left, y: top, width: width, height: height})"
+      @dragging="$emit('action:dragging')"
       :prevent-deactivation="true"
       :active="true"
       :z="zIndex"
@@ -28,7 +29,7 @@ import VueDraggableResizable from "vue-draggable-resizable";
 import {ref} from "vue";
 
 defineProps(["title"]);
-defineEmits(['action:close', 'action:fullscreen', 'lastPosition', 'lastSize']);
+defineEmits(['action:close', 'action:fullscreen', 'lastPosition', 'lastSize', "action:dragging"]);
 
 let zIndex = ref(2);
 

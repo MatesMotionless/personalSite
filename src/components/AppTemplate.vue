@@ -12,6 +12,7 @@
         v-if="isOpen"
         @last-position="updateCoordinates"
         @last-size="updateCoordinates"
+        @action:dragging="$emit('action:dragging')"
         v-bind="attrs"
         v-bind:style="$attrs.style"
     >
@@ -28,7 +29,7 @@ import {reactive, ref, watch} from "vue";
 import WindowBase from "./WindowBase.vue";
 
 defineProps(['title', 'row', 'column', 'icon']);
-const emit = defineEmits( ['action:open', 'action:close', 'window:resize', 'window:move', 'action:fullscreen']);
+const emit = defineEmits( ['action:open', 'action:close', 'window:resize', 'window:move', 'action:fullscreen', 'action:dragging']);
 
 
 
