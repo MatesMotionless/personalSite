@@ -17,7 +17,7 @@
       <a class="button" @click.prevent="$emit('action:fullscreen')">#</a>
       <a class="button" @click.prevent="$emit('action:close')">X</a>
     </div>
-    <div class="app-content" v-bind:style="$attrs.style">
+    <div class="app-content" :style="appContentStyles">
       <slot>
 
       </slot>
@@ -28,7 +28,7 @@
 import VueDraggableResizable from "vue-draggable-resizable";
 import {ref} from "vue";
 
-defineProps(["title"]);
+defineProps(["title", 'appContentStyles']);
 defineEmits(['action:close', 'action:fullscreen', 'lastPosition', 'lastSize', "action:dragging"]);
 
 let zIndex = ref(2);

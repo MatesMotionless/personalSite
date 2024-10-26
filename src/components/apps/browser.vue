@@ -4,17 +4,22 @@
       column="3"
       row="3"
       icon="browser"
-      style="display: flex; flex-direction: column;"
+      :app-content-styles="isFullscreen ? 'filter: brightness(0.5);display: flex; flex-direction: column;':'display: flex; flex-direction: column;'"
       @window:resize="onResize"
-      @action:fullscreen="onResize"
+      @action:fullscreen="onFullscreen"
   >
     <div class="browser-top">
-      <a class="browser-top__icon">
+      <a class="browser-top__icon" @click="currentUrl = null">
         <svg>
           <use href="/icons/util.svg#bookmark"></use>
         </svg>
       </a>
       <input disabled placeholder="home://bookmarks" :value="currentUrl">
+      <a class="browser-top__icon">
+        <svg>
+          <use href="/icons/util.svg#bookmark"></use>
+        </svg>
+      </a>
     </div>
     <div class="wh-full browser-view" ref="browserView">
       <iframe
@@ -33,7 +38,7 @@
 </template>
 <script setup>
 import AppTemplate from "../AppTemplate.vue";
-import {nextTick, onMounted, reactive, ref} from "vue";
+import {nextTick, onMounted, reactive, ref, watch} from "vue";
 const browserView = ref(null);
 
 const iframeDimensions = reactive({
@@ -59,7 +64,12 @@ let bookmarks = [
   }
   ];
 
+let isFullscreen = ref(false);
 
+function onFullscreen(){
+  isFullscreen.value = !isFullscreen.value;
+  onResize();
+}
 async function onResize(){
   await nextTick();
   if(browserView.value){
@@ -67,6 +77,12 @@ async function onResize(){
     iframeDimensions.height = browserView.value.offsetHeight;
   }
 }
+
+watch(currentUrl, (newValue, oldValue) => {
+  if(newValue !== null){
+    onResize() ;
+  }
+})
 
 
 onMounted(() => {
@@ -86,7 +102,6 @@ onMounted(() => {
 }
 .browser-top {
   display: flex;
-  padding-top: 13px;
 }
 
 & input, textarea {
@@ -107,7 +122,7 @@ onMounted(() => {
 }
 
 .browser-top__icon {
-  width: 5%;
+  cursor: pointer;
   height: 65%;
   svg{
     width: 20px;

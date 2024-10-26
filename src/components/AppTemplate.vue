@@ -9,12 +9,12 @@
         :title="title"
         @action:close="isOpen = false"
         @action:fullscreen="toggleFullscreen"
+        :app-content-styles="appContentStyles"
         v-if="isOpen"
         @last-position="updateCoordinates"
         @last-size="updateCoordinates"
         @action:dragging="$emit('action:dragging')"
         v-bind="attrs"
-        v-bind:style="$attrs.style"
     >
       <slot>
         <!--Content here-->
@@ -28,7 +28,7 @@
 import {reactive, ref, watch} from "vue";
 import WindowBase from "./WindowBase.vue";
 
-defineProps(['title', 'row', 'column', 'icon']);
+defineProps(['title', 'row', 'column', 'icon', 'appContentStyles']);
 const emit = defineEmits( ['action:open', 'action:close', 'window:resize', 'window:move', 'action:fullscreen', 'action:dragging']);
 
 
