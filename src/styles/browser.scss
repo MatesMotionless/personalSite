@@ -1,0 +1,17 @@
+.bookmark-list {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.browser-view{
+  @include custom-scroll;
+  overflow: hidden;
+  &__scrollable {
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+  }
+}

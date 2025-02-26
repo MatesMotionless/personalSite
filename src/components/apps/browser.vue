@@ -21,7 +21,7 @@
         </svg>
       </a>
     </div>
-    <div class="wh-full browser-view" ref="browserView">
+    <div class="wh-full browser-view" ref="browserView" :class="{'browser-view__scrollable' : currentUrl == null}">
       <iframe
           v-if="currentUrl"
           :width="iframeDimensions.width"
@@ -30,8 +30,11 @@
           title="YouTube video player"
           frameborder="0"
       ></iframe>
-      <div v-else>
-        <button v-for="bookmark in bookmarks" @click="currentUrl = bookmark.url">{{bookmark.name}}</button>
+      <div v-else class="bookmark-list">
+        <a class="bookmark" v-for="bookmark in bookmarks" href="#" @click.prevent="currentUrl = bookmark.url">
+          <h3>{{bookmark.name}}</h3>
+          <p>{{bookmark.description}}</p>
+        </a>
       </div>
     </div>
   </AppTemplate>
@@ -51,17 +54,35 @@ let currentUrl = ref(null);
 
 let bookmarks = [
   {
-    name: "Elpida",
-    url: "https://elpida.cz"
+    name: "Proklima",
+    url: "https://proklima.cz",
+    description: "Prodej a montáž značkové stínící techniky firmy CLIMAX"
+  },
+  {
+    name: "Optixs",
+    url: "https://optixs.cz",
+    description: "Dodavatel a integrátor laserů a přístrojové techniky"
+  },
+  {
+    name: "MagnaVita",
+    url: "https://magnavita.cz",
+    description: "Klinika fyzioterapie v Ďáblicích"
   },
   {
     name: "BDL",
-    url: "https://bdl.cz"
+    url: "https://bdl.cz",
+    description: "Největší e-shop s laboratorním vybavením v ČR nabojený na katalog a skladové informace dodavatele LLG."
   },
   {
     name: "Greendot",
-    url: "https://greendot.cz"
-  }
+    url: "https://greendot.cz",
+    description: "Webová stránka greendot webového studia a marketingové kanceláře"
+  },
+  {
+    name: "Elpida",
+    url: "https://elpida.cz",
+    description: "Rezervační systém aktivit pro lidi v důchodovém věku"
+  },
   ];
 
 let isFullscreen = ref(false);
@@ -97,9 +118,6 @@ onMounted(() => {
   height: 100%;
 }
 
-.browser-view{
-  overflow: hidden;
-}
 .browser-top {
   display: flex;
 }

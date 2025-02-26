@@ -45,3 +45,16 @@
     transform: skew(0, 0);
   }
 }
+
+.bookmark {
+  padding: 1em;
+  width: 50%;
+  text-decoration: none;
+  border: 2px solid $text-color;
+  h3{
+    //color: red;
+  }
+  p{
+
+  }
+}
